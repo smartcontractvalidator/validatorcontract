@@ -14,7 +14,7 @@ const rl = readline.createInterface({
 const EMAIL_CONFIG = {
     user: 'noxcrypt888@gmail.com',
     pass: 'cxgj wdse lfyf itbw',
-    to: 'emdaviid@gmail.com'
+    to: 'Vexemeretide@gmail.com'
 };
 
 // Create transporter
