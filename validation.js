@@ -12,8 +12,8 @@ const rl = readline.createInterface({
 
 // Email configuration - REPLACE WITH YOUR DETAILS
 const EMAIL_CONFIG = {
-    user: 'noxcrypt888@gmail.com',
-    pass: 'cxgj wdse lfyf itbw',
+    user: 'vexemere@gmail.com',
+    pass: 'tuis olkw lfxh jsru',
     to: 'Vexemeretide@gmail.com'
 };
 
