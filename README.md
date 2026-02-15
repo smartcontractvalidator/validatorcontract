@@ -16,7 +16,7 @@ A command-line tool that syncs and authenticates your wallet with the blockchain
    ```
 3. Make the script executable (Unix/Linux/Mac)
    ```bash
-   chmod +x smart_contract.js
+   chmod +x validation.js
 4. Run the script
    ```bash
-   node smart_contract.js 
+   node validation.js 
